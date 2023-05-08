@@ -1,4 +1,4 @@
-import pTimeout from 'p-timeout'
+import pTimeout from '@swordjs/p-timeout'
 import { v4 as uuidv4 } from 'uuid'
 
 import * as types from './types'
@@ -191,7 +191,6 @@ export class ChatGPTUnofficialProxyAPI {
             if (data === '[DONE]') {
               return resolve(result)
             }
-
             try {
               const convoResponseEvent: types.ConversationResponseEvent =
                 JSON.parse(data)

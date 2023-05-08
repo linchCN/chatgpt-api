@@ -1,12 +1,50 @@
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/index.ts
+var src_exports = {};
+__export(src_exports, {
+  ChatGPTAPI: () => ChatGPTAPI,
+  ChatGPTError: () => ChatGPTError,
+  ChatGPTUnofficialProxyAPI: () => ChatGPTUnofficialProxyAPI,
+  openai: () => openai
+});
+module.exports = __toCommonJS(src_exports);
+
 // src/chatgpt-api.ts
-import Keyv from "keyv";
-import pTimeout from "p-timeout";
-import QuickLRU from "quick-lru";
-import { v4 as uuidv4 } from "uuid";
+var import_keyv = __toESM(require("keyv"));
+var import_p_timeout = __toESM(require("@swordjs/p-timeout"));
+var import_quick_lru = __toESM(require("@swordjs/quick-lru"));
+var import_uuid = require("uuid");
 
 // src/tokenizer.ts
-import { get_encoding } from "@dqbd/tiktoken";
-var tokenizer = get_encoding("cl100k_base");
+var import_tiktoken = require("@dqbd/tiktoken");
+var tokenizer = (0, import_tiktoken.get_encoding)("cl100k_base");
 function encode(input) {
   return tokenizer.encode(input);
 }
@@ -22,7 +60,7 @@ var openai;
 var fetch = globalThis.fetch;
 
 // src/fetch-sse.ts
-import { createParser } from "eventsource-parser";
+var import_eventsource_parser = require("eventsource-parser");
 
 // src/stream-async-iterable.ts
 async function* streamAsyncIterable(stream) {
@@ -57,7 +95,7 @@ async function fetchSSE(url, options, fetch2 = fetch) {
     error.statusText = res.statusText;
     throw error;
   }
-  const parser = createParser((event) => {
+  const parser = (0, import_eventsource_parser.createParser)((event) => {
     if (event.type === "event") {
       onMessage(event.data);
     }
@@ -163,8 +201,8 @@ Current date: ${currentDate}`;
     if (messageStore) {
       this._messageStore = messageStore;
     } else {
-      this._messageStore = new Keyv({
-        store: new QuickLRU({ maxSize: 1e4 })
+      this._messageStore = new import_keyv.default({
+        store: new import_quick_lru.default({ maxSize: 1e4 })
       });
     }
     if (!this._apiKey) {
@@ -202,7 +240,7 @@ Current date: ${currentDate}`;
   async sendMessage(text, opts = {}) {
     const {
       parentMessageId,
-      messageId = uuidv4(),
+      messageId = (0, import_uuid.v4)(),
       timeoutMs,
       onProgress,
       stream = onProgress ? true : false,
@@ -229,7 +267,7 @@ Current date: ${currentDate}`;
     );
     const result = {
       role: "assistant",
-      id: uuidv4(),
+      id: (0, import_uuid.v4)(),
       conversationId,
       parentMessageId: messageId,
       text: ""
@@ -363,7 +401,7 @@ Current date: ${currentDate}`;
           abortController.abort();
         };
       }
-      return pTimeout(responseP, {
+      return (0, import_p_timeout.default)(responseP, {
         milliseconds: timeoutMs,
         message: "OpenAI timed out waiting for response"
       });
@@ -467,8 +505,8 @@ ${message.content}`]);
 };
 
 // src/chatgpt-unofficial-proxy-api.ts
-import pTimeout2 from "p-timeout";
-import { v4 as uuidv42 } from "uuid";
+var import_p_timeout2 = __toESM(require("@swordjs/p-timeout"));
+var import_uuid2 = require("uuid");
 
 // src/utils.ts
 var uuidv4Re = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -558,8 +596,8 @@ var ChatGPTUnofficialProxyAPI = class {
     }
     const {
       conversationId,
-      parentMessageId = uuidv42(),
-      messageId = uuidv42(),
+      parentMessageId = (0, import_uuid2.v4)(),
+      messageId = (0, import_uuid2.v4)(),
       action = "next",
       timeoutMs,
       onProgress
@@ -590,7 +628,7 @@ var ChatGPTUnofficialProxyAPI = class {
     }
     const result = {
       role: "assistant",
-      id: uuidv42(),
+      id: (0, import_uuid2.v4)(),
       parentMessageId: messageId,
       conversationId,
       text: ""
@@ -637,7 +675,9 @@ var ChatGPTUnofficialProxyAPI = class {
                 }
               }
             } catch (err) {
-              reject(err);
+              if (this._debug) {
+                console.warn("chatgpt unexpected JSON error", err);
+              }
             }
           },
           onError: (err) => {
@@ -661,7 +701,7 @@ var ChatGPTUnofficialProxyAPI = class {
           abortController.abort();
         };
       }
-      return pTimeout2(responseP, {
+      return (0, import_p_timeout2.default)(responseP, {
         milliseconds: timeoutMs,
         message: "ChatGPT timed out waiting for response"
       });
@@ -670,10 +710,11 @@ var ChatGPTUnofficialProxyAPI = class {
     }
   }
 };
-export {
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
   ChatGPTAPI,
   ChatGPTError,
   ChatGPTUnofficialProxyAPI,
   openai
-};
+});
 //# sourceMappingURL=index.js.map
