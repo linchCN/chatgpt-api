@@ -1,18 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@dqbd/tiktoken':
-    specifier: ^1.0.7
-    version: 1.0.7
-  '@swordjs/p-timeout':
-    specifier: ^6.1.2
-    version: 6.1.2
-  '@swordjs/quick-lru':
-    specifier: ^6.1.3
-    version: 6.1.3
-  '@swordjs/read-pkg-up':
-    specifier: ^9.1.1
-    version: 9.1.1
   cac:
     specifier: ^6.7.14
     version: 6.7.14
@@ -22,9 +10,21 @@ dependencies:
   eventsource-parser:
     specifier: ^1.0.0
     version: 1.0.0
+  js-tiktoken:
+    specifier: ^1.0.5
+    version: 1.0.5
   keyv:
     specifier: ^4.5.2
     version: 4.5.2
+  p-timeout:
+    specifier: ^6.1.1
+    version: 6.1.1
+  quick-lru:
+    specifier: ^6.1.1
+    version: 6.1.1
+  read-pkg-up:
+    specifier: ^9.1.0
+    version: 9.1.0
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -191,10 +191,6 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
     dev: true
-
-  /@dqbd/tiktoken@1.0.7:
-    resolution: {integrity: sha512-bhR5k5W+8GLzysjk8zTMVygQZsgvf7W1F0IlL4ZQ5ugjo5rCyiwGM5d8DYriXspytfu98tv59niang3/T+FoDw==}
-    dev: false
 
   /@esbuild-kit/cjs-loader@2.4.2:
     resolution: {integrity: sha512-BDXFbYOJzT/NBEtp71cvsrGPwGAMGRB/349rwKuoxNSiKjPraNNnlK6MIIabViCjqZugu6j+xeMDlEkWdHHJSg==}
@@ -647,25 +643,6 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@swordjs/p-timeout@6.1.2:
-    resolution: {integrity: sha512-2+2qH022dn9x1c357VkoSu/v5CUdqg4EBxJ/xC0eK3uLVJ8lEXurdo5NWURaUb8/GwJBqJTU6g3+IIZYlfmslA==}
-    engines: {node: '>=14.16'}
-    dev: false
-
-  /@swordjs/quick-lru@6.1.3:
-    resolution: {integrity: sha512-y7FLN/rWlFAkzoGsYMrakhZRr6leOXgZeebo0LIRqDBpVu1HFC4+xjWfXGt1n4N2JK3cLsRsoj/O/V8kx5Xg/w==}
-    engines: {node: '>=12'}
-    dev: false
-
-  /@swordjs/read-pkg-up@9.1.1:
-    resolution: {integrity: sha512-hJLGP6UJ1zftLavHTzbTpBknF49k0ACKLOcjIWZ4tUMJqeXaCcSr5yqFK0dUe7vVEs7KAlltINAFsBeuWuiDiQ==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      find-up: 6.3.0
-      read-pkg: 7.1.0
-      type-fest: 2.19.0
-    dev: false
-
   /@trivago/prettier-plugin-sort-imports@4.1.1(prettier@2.8.8):
     resolution: {integrity: sha512-dQ2r2uzNr1x6pJsuh/8x0IRA3CBUB+pWEW3J/7N98axqt7SQSm+2fy0FLNXvXGg77xEDC7KHxJlHfLYyi7PDcw==}
     peerDependencies:
@@ -717,8 +694,10 @@ packages:
       indent-string: 5.0.0
     dev: true
 
-  /ajv-formats@2.1.1:
+  /ajv-formats@2.1.1(ajv@8.12.0):
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -826,7 +805,6 @@ packages:
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
-    dev: true
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -1035,7 +1013,7 @@ packages:
     engines: {node: '>=14.16'}
     dependencies:
       ajv: 8.12.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1(ajv@8.12.0)
       atomically: 2.0.1
       debounce-fn: 5.1.2
       dot-prop: 7.2.0
@@ -1848,6 +1826,12 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /js-tiktoken@1.0.5:
+    resolution: {integrity: sha512-RYXe54ntls/uQmAxUua2J1+g+EiwWHGn1CxfioYxrP1iVDmksfZsyJt0VySyMNbreJyyreDtyBuBxeXy7HYqjQ==}
+    dependencies:
+      base64-js: 1.5.1
+    dev: false
+
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -2284,6 +2268,11 @@ packages:
       aggregate-error: 4.0.1
     dev: true
 
+  /p-timeout@6.1.1:
+    resolution: {integrity: sha512-yqz2Wi4fiFRpMmK0L2pGAU49naSUaP23fFIQL2Y6YT+qDGPoFwpvgQM/wzc6F8JoenUkIlAFa4Ql7NguXBxI7w==}
+    engines: {node: '>=14.16'}
+    dev: false
+
   /parse-json@4.0.0:
     resolution: {integrity: sha512-aOIos8bujGN93/8Ox/jPLh7RwVnPEysynVFE+fQZyg6jKELEHwzgKdLRFHUgXJL6kylijVSBC4BvN9OmsB48Rw==}
     engines: {node: '>=4'}
@@ -2409,6 +2398,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /quick-lru@6.1.1:
+    resolution: {integrity: sha512-S27GBT+F0NTRiehtbrgaSE1idUAJ5bX8dPAQTdylEyNlrdcH5X4Lz7Edz3DYzecbsCluD5zO8ZNEe04z3D3u6Q==}
+    engines: {node: '>=12'}
+    dev: false
+
   /read-pkg-up@8.0.0:
     resolution: {integrity: sha512-snVCqPczksT0HS2EC+SxUndvSzn6LRCwpfSvLrIfR5BKDQQZMaI6jPRC9dYvYFDRAuFEAnkwww8kBBNE/3VvzQ==}
     engines: {node: '>=12'}
@@ -2417,6 +2411,15 @@ packages:
       read-pkg: 6.0.0
       type-fest: 1.4.0
     dev: true
+
+  /read-pkg-up@9.1.0:
+    resolution: {integrity: sha512-vaMRR1AC1nrd5CQM0PhlRsO5oc2AAigqr7cCrZ/MW/Rsaflz4RlgzkpL4qoU/z1F6wrbd85iFv1OQj/y5RdGvg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      find-up: 6.3.0
+      read-pkg: 7.1.0
+      type-fest: 2.19.0
+    dev: false
 
   /read-pkg@3.0.0:
     resolution: {integrity: sha512-BLq/cCO9two+lBgiTYNqD6GdtK8s4NpaWrl6/rCO9w0TUS8oJl7cmToOZfRYllKTISY6nt1U7jQ53brmKqY6BA==}
