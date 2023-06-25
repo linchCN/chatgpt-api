@@ -1,14 +1,14 @@
 // src/chatgpt-api.ts
-import Keyv from "keyv";
 import pTimeout from "@swordjs/p-timeout";
 import QuickLRU from "@swordjs/quick-lru";
+import Keyv from "keyv";
 import { v4 as uuidv4 } from "uuid";
 
 // src/tokenizer.ts
-import { get_encoding } from "@dqbd/tiktoken";
-var tokenizer = get_encoding("cl100k_base");
+import { getEncoding } from "js-tiktoken";
+var tokenizer = getEncoding("cl100k_base");
 function encode(input) {
-  return tokenizer.encode(input);
+  return new Uint32Array(tokenizer.encode(input));
 }
 
 // src/types.ts

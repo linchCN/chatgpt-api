@@ -37,16 +37,16 @@ __export(src_exports, {
 module.exports = __toCommonJS(src_exports);
 
 // src/chatgpt-api.ts
-var import_keyv = __toESM(require("keyv"));
 var import_p_timeout = __toESM(require("@swordjs/p-timeout"));
 var import_quick_lru = __toESM(require("@swordjs/quick-lru"));
+var import_keyv = __toESM(require("keyv"));
 var import_uuid = require("uuid");
 
 // src/tokenizer.ts
-var import_tiktoken = require("@dqbd/tiktoken");
-var tokenizer = (0, import_tiktoken.get_encoding)("cl100k_base");
+var import_js_tiktoken = require("js-tiktoken");
+var tokenizer = (0, import_js_tiktoken.getEncoding)("cl100k_base");
 function encode(input) {
-  return tokenizer.encode(input);
+  return new Uint32Array(tokenizer.encode(input));
 }
 
 // src/types.ts

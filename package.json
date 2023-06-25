@@ -17,7 +17,8 @@
   },
   "files": [
     "build",
-    "bin"
+    "bin",
+    "src"
   ],
   "bin": "./bin/cli.js",
   "engines": {
